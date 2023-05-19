@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:code_text_field/code_text_field.dart' as lite;
 import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:highlight/languages/dart.dart';
+import 'package:multi_split_view/multi_split_view.dart';
 import 'package:quinine/keys/activators.dart';
 
 import '../../hooks/code.dart';
@@ -69,7 +71,15 @@ class CodeEditor extends HookConsumerWidget {
             sourceFile.extentOffset < sourceFile.fullText.length) {
           codeController.setCursor(sourceFile.extentOffset);
         }
-
+        if (fileExtension == 'md') {
+          return MultiSplitView(children: [
+            getCodeEditor(ref, focusNode, codeController, codeStyle),
+            Markdown(
+              data: sourceFile.fullText,
+              selectable: true,
+            ),
+          ]);
+        }
         return getCodeEditor(ref, focusNode, codeController, codeStyle);
       },
       loading: () => const Center(

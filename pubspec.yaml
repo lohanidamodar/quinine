@@ -39,6 +39,8 @@ dependencies:
   code_text_field: ^1.1.0
   flutter_code_editor: ^0.2.23
   tabbed_view: ^1.16.0+1
+  markdown_widget: ^2.1.0
+  flutter_markdown: ^0.6.14
 
   # For window management
   window_manager: ^0.3.2
